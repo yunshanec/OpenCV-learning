@@ -5,7 +5,7 @@
 import cv2
 import numpy as np
 
-image = cv2.imread(r'../picture_data/coins.png')
+image = cv2.imread(r'../picture_data/coins_fenkai.png')
 image_gray = cv2.cvtColor(image,cv2.COLOR_BGR2GRAY)
 
 # 二值化
@@ -37,7 +37,7 @@ makers3 = cv2.watershed(image,makers)
 image[makers == -1] = [255,0,0]
 
 # 归一化的距离图像数组 骨骼图像
-# dist_output= cv2.normalize(dist,0,1.0,cv2.NORM_MINMAX)
+dist_output= cv2.normalize(dist,0,1.0,cv2.NORM_MINMAX)
 
 
 cv2.imshow("result",image)

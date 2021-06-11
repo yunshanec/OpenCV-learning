@@ -5,7 +5,7 @@
 import cv2
 import numpy as np
 
-image_gray =cv2.imread(r'../picture_data/panting.png',0)
+image_gray =cv2.imread(r'../bot_camera/1.bmp',0)
 
 mean_image = cv2.medianBlur(image_gray,5)
 c_image = cv2.cvtColor(mean_image,cv2.COLOR_GRAY2BGR)
@@ -14,6 +14,7 @@ circles = cv2.HoughCircles(image_gray,cv2.HOUGH_GRADIENT,1,20,param1=50,param2=3
 circles = np.uint16(np.around(circles))
 
 for i in circles[0,:]:
+    print((i[0],i[1]))
     # 画圆心
     cv2.circle(c_image, (i[0], i[1]), 1, (0, 255, 0), 3)
     #画圆

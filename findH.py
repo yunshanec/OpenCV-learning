@@ -1,3 +1,8 @@
+# -*- coding: utf-8 -*-
+# @Time : 2021/06/10 18:30
+# @Author : yunshan
+# @File : findH.py
+
 import cv2
 
 # 轮廓可以简单地认为成将连续的点连在一起的曲线，具有相同的颜色或者灰度
@@ -6,12 +11,12 @@ import cv2
 # 在寻找轮廓之前，要进行阈值化处理或者Canny边界检测
 # 在OpenCV 中，查找轮廓就像在黑色背景中查找白色物体。所以查找的物体要是白色，背景是黑色
 
-img = cv2.imread("../picture_data/coins_fenkai.png")
+img = cv2.imread("../picture_data/coins.png")
 tezheng={}
 
 imgray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
-ret2, thresh = cv2.threshold(imgray, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+ret2, thresh = cv2.threshold(imgray, 125, 255, cv2.THRESH_BINARY)
 
 #找轮廓
 contours,hierarchy = cv2.findContours(
@@ -40,15 +45,15 @@ tezheng["面积"] = area
 perimeter = cv2.arcLength(cnt, True)
 tezheng["周长"] = perimeter
 
-# 轮廓近似???? 准确度参数用在哪了？
-epsilon = 0.1*cv2.arcLength(cnt,True)
-approx = cv2.approxPolyDP(cnt, epsilon,True)
+# # 轮廓近似???? 准确度参数用在哪了？
+# epsilon = 0.1*cv2.arcLength(cnt,True)
+# approx = cv2.approxPolyDP(cnt, epsilon,True)
 
 
 print(tezheng)
 
 cv2.namedWindow("Drawing", cv2.WINDOW_NORMAL)
-cv2.imshow("Drawing", draw_img)
+cv2.imshow("Drawing", thresh)
 cv2.waitKey(0)
 
 cv2.destroyAllWindows()
